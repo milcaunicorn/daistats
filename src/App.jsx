@@ -281,7 +281,7 @@ const flop = build(add.MCD_FLOP, "Flopper")
 const d3mAdai = build(add.MCD_JOIN_DIRECT_AAVEV2_DAI, "DssDirectDepositAaveDai")
 const aaveIncentive = build(add.MCD_JOIN_DIRECT_AAVEV2_DAI_INCENTIVE, "StakedTokenIncentivesController")
 //const d3mCdai = build(add.DIRECT_AAVEV2_DAI,  "CErc20Delegator")
-const d3mCompoundPool = build(add.D3M_COMPOUND_POOL, "D3MCompoundPool")
+//const d3mCompoundPool = build(add.D3M_COMPOUND_POOL, "D3MCompoundPool")
 const usdcPip = build(add.PIP_USDC, "DSValue")
 const tusdPip = build(add.PIP_TUSD, "DSValue")
 const paxPip = build(add.PIP_PAXUSD, "DSValue")
@@ -491,9 +491,9 @@ class App extends Component {
       [add.MCD_JOIN_DIRECT_AAVEV2_DAI_STABLE, adai.interface.encodeFunctionData('totalSupply', [])],
       [add.MCD_JOIN_DIRECT_AAVEV2_DAI_POOL, aaveLendingPool.interface.encodeFunctionData('getReserveData', [add.MCD_DAI])],
       //[add.MCD_JOIN_DIRECT_AAVEV2_DAI_INCENTIVE, aaveIncentive.interface.encodeFunctionData('getRewardsBalance', [[add.ADAI], add.MCD_JOIN_DIRECT_AAVEV2_DAI])],
-      [add.D3M_COMPOUND_POOL, d3mCompoundPool.interface.encodeFunctionData('assetBalance', [])],
-      [add.D3M_COMPOUND_POOL, d3mCompoundPool.interface.encodeFunctionData('maxDeposit', [])],
-      [add.D3M_COMPOUND_POOL, d3mCompoundPool.interface.encodeFunctionData('maxWithdraw', [])],
+      //[add.D3M_COMPOUND_POOL, d3mCompoundPool.interface.encodeFunctionData('assetBalance', [])],
+      //[add.D3M_COMPOUND_POOL, d3mCompoundPool.interface.encodeFunctionData('maxDeposit', [])],
+      //[add.D3M_COMPOUND_POOL, d3mCompoundPool.interface.encodeFunctionData('maxWithdraw', [])],
 
     ].concat(this.getVestingCalls(add.MCD_VEST_DAI_LEGACY, vestDai, VEST_DAI_LEGACY_IDS))
      .concat(this.getVestingCalls(add.MCD_VEST_DAI, vestDai, VEST_DAI_IDS))
@@ -712,9 +712,9 @@ class App extends Component {
     // asset is the ERC20 deposited or borrowed, eg. DAI, WETH
     const d3mAdaiReserve = aaveLendingPool.interface.decodeFunctionResult('getReserveData', res[offset++])[0]
     //const d3mAdaiIncentive = aaveIncentive.interface.decodeFunctionResult('getRewardsBalance', res[offset++])[0]
-    const d3mCompBalance = d3mCompoundPool.interface.decodeFunctionResult('assetBalance', res[offset++])[0]
-    const d3mCompMaxDeposit = d3mCompoundPool.interface.decodeFunctionResult('maxDeposit', res[offset++])[0]
-    const d3mCompMaxWithdraw = d3mCompoundPool.interface.decodeFunctionResult('maxWithdraw', res[offset++])[0]
+    //const d3mCompBalance = d3mCompoundPool.interface.decodeFunctionResult('assetBalance', res[offset++])[0]
+    //const d3mCompMaxDeposit = d3mCompoundPool.interface.decodeFunctionResult('maxDeposit', res[offset++])[0]
+    //const d3mCompMaxWithdraw = d3mCompoundPool.interface.decodeFunctionResult('maxWithdraw', res[offset++])[0]
 
     const ILK_CALL_COUNT = 17;
     const ILK_RWA_CALL_COUNT = 8;
@@ -879,9 +879,9 @@ class App extends Component {
         d3mAdaiVariableBorrowAPR: utils.formatUnits(d3mAdaiReserve.currentVariableBorrowRate, 27),
         d3mAdaiStableBorrowAPR: utils.formatUnits(d3mAdaiReserve.currentStableBorrowRate, 27),
         //d3mAdaiIncentive: utils.formatEther(d3mAdaiIncentive),
-        d3mCompBalance: utils.formatUnits(d3mCompBalance, 18),
-        d3mCompMaxDeposit: utils.formatUnits(d3mCompMaxDeposit, 18),
-        d3mCompMaxWithdraw: utils.formatUnits(d3mCompMaxWithdraw, 18),
+        //d3mCompBalance: utils.formatUnits(d3mCompBalance, 18),
+        //d3mCompMaxDeposit: utils.formatUnits(d3mCompMaxDeposit, 18),
+        //d3mCompMaxWithdraw: utils.formatUnits(d3mCompMaxWithdraw, 18),
         historicalDebt,
       }
     })

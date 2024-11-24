@@ -38,21 +38,22 @@ const HistoricalDebtChart = ({ data }) => {
     [locale]
   )
 
-  const ticks = useMemo(
-    () => (
-      data.reduce((output, point, index, points) => {
-        const c = new Date(point?.timestamp * 1000)
-        const p =  new Date(points?.[index - 1]?.["timestamp"] * 1000)
-
-        if (c.getFullYear() !== p.getFullYear() || c.getMonth() !== p.getMonth()) {
-          output.push(index)
-        }
-
-        return output
-      }, [])
-    ),
-    [data]
-  )
+  const ticks = useMemo(() => {
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return [];
+    }
+  
+    return data.reduce((output, point, index, points) => {
+      const c = new Date(point?.timestamp * 1000);
+      const p = index > 0 ? new Date(points[index - 1]?.timestamp * 1000) : new Date(0);
+  
+      if (c.getFullYear() !== p.getFullYear() || c.getMonth() !== p.getMonth()) {
+        output.push(index);
+      }
+  
+      return output;
+    }, []);
+  }, [data]);
 
   const formatTick = useCallback(
     (index) => {
